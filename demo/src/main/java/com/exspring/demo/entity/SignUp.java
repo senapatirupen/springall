@@ -15,17 +15,15 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 @Entity
-@Table(name = "SIGNUP", schema = "netheart")
+@Table(name = "SIGNUP", schema = "demo")
 public class SignUp {
 
 	@Id
 	@GeneratedValue(generator = "TableIdGen")
 	@GenericGenerator(strategy = "org.hibernate.id.enhanced.TableGenerator", name = "TableIdGen", parameters = {
 			@Parameter(name = "table_name", value = "SIID_GENERATE"),
-			@Parameter(name = "segment_value", value = "siId"),
-			@Parameter(name = "optimizer", value = "pooled"),
-			@Parameter(name = "initial_value", value = "1000"),
-			@Parameter(name = "increment_size", value = "10") })
+			@Parameter(name = "segment_value", value = "siId"), @Parameter(name = "optimizer", value = "pooled"),
+			@Parameter(name = "initial_value", value = "1000"), @Parameter(name = "increment_size", value = "10") })
 	private Long siId;
 	@Column(name = "USER_NAME", nullable = false, unique = false)
 	private String userName;
@@ -48,6 +46,41 @@ public class SignUp {
 	@Column(name = "MODIFIED_DATE", nullable = false, unique = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date modifiedDate;
+	@Column(name = "CREATED_BY", nullable = false, unique = false)
+	private Boolean createdBy;
+	@Column(name = "MODIFIED_BY", nullable = false, unique = false)
+	private Boolean modifiedBy;
+
+	/**
+	 * @return the createdBy
+	 */
+	public Boolean getCreatedBy() {
+		return createdBy;
+	}
+
+	/**
+	 * @param createdBy
+	 *            the createdBy to set
+	 */
+	public void setCreatedBy(Boolean createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	/**
+	 * @return the modifiedBy
+	 */
+	public Boolean getModifiedBy() {
+		return modifiedBy;
+	}
+
+	/**
+	 * @param modifiedBy
+	 *            the modifiedBy to set
+	 */
+	public void setModifiedBy(Boolean modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
+
 	@Column(name = "IS_ACTIVE", nullable = false, unique = false)
 	private Boolean isActive;
 	@Column(name = "IS_INACTIVE", nullable = false, unique = false)

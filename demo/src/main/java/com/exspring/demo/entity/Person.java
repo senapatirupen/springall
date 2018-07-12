@@ -21,17 +21,15 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 @Entity
-@Table(name = "PERSON", schema = "netheart")
+@Table(name = "PERSON", schema = "demo")
 public class Person {
 
 	@Id
 	@GeneratedValue(generator = "TableIdGen")
 	@GenericGenerator(strategy = "org.hibernate.id.enhanced.TableGenerator", name = "TableIdGen", parameters = {
 			@Parameter(name = "table_name", value = "PEID_GENERATE"),
-			@Parameter(name = "segment_value", value = "peId"),
-			@Parameter(name = "optimizer", value = "pooled"),
-			@Parameter(name = "initial_value", value = "1000"),
-			@Parameter(name = "increment_size", value = "10") })
+			@Parameter(name = "segment_value", value = "peId"), @Parameter(name = "optimizer", value = "pooled"),
+			@Parameter(name = "initial_value", value = "1000"), @Parameter(name = "increment_size", value = "10") })
 	private Long peId;
 	@Column(name = "FIRST_NAME", nullable = false, unique = false)
 	private String firstName;
@@ -43,13 +41,19 @@ public class Person {
 	@JoinColumn(name = "SIID")
 	private SignUp signUp;
 	@OneToMany(targetEntity = Order.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "PERSON_ORDER", joinColumns = { @JoinColumn(name = "PEID", nullable = false, insertable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "ODID", nullable = false, insertable = false, updatable = false) })
+	@JoinTable(name = "PERSON_ORDER", joinColumns = {
+			@JoinColumn(name = "PEID", nullable = false, insertable = false, updatable = false) }, inverseJoinColumns = {
+					@JoinColumn(name = "ODID", nullable = false, insertable = false, updatable = false) })
 	private Collection<Order> orderList;
 	@OneToMany(targetEntity = Address.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "PERSON_ADDRESS", joinColumns = { @JoinColumn(name = "PEID", nullable = false, insertable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "ADID", nullable = false, insertable = false, updatable = false) })
+	@JoinTable(name = "PERSON_ADDRESS", joinColumns = {
+			@JoinColumn(name = "PEID", nullable = false, insertable = false, updatable = false) }, inverseJoinColumns = {
+					@JoinColumn(name = "ADID", nullable = false, insertable = false, updatable = false) })
 	private Collection<Address> addressList;
 	@OneToMany(targetEntity = Address.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "PERSON_DELIVERY_ADDRESS", joinColumns = { @JoinColumn(name = "PEID", nullable = false, insertable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "DEADID", nullable = false, insertable = false, updatable = false) })
+	@JoinTable(name = "PERSON_DELIVERY_ADDRESS", joinColumns = {
+			@JoinColumn(name = "PEID", nullable = false, insertable = false, updatable = false) }, inverseJoinColumns = {
+					@JoinColumn(name = "DEADID", nullable = false, insertable = false, updatable = false) })
 	private Collection<DeliveryAddress> deliveryAddressList;
 	@Column(name = "CREATED_DATE", nullable = false, unique = false)
 	@Temporal(TemporalType.TIMESTAMP)
@@ -61,6 +65,37 @@ public class Person {
 	private Boolean createdBy;
 	@Column(name = "MODIFIED_BY", nullable = false, unique = false)
 	private Boolean modifiedBy;
+
+	/**
+	 * @return the createdBy
+	 */
+	public Boolean getCreatedBy() {
+		return createdBy;
+	}
+
+	/**
+	 * @param createdBy
+	 *            the createdBy to set
+	 */
+	public void setCreatedBy(Boolean createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	/**
+	 * @return the modifiedBy
+	 */
+	public Boolean getModifiedBy() {
+		return modifiedBy;
+	}
+
+	/**
+	 * @param modifiedBy
+	 *            the modifiedBy to set
+	 */
+	public void setModifiedBy(Boolean modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
+
 	@Column(name = "IS_ACTIVE", nullable = false, unique = false)
 	private Boolean isActive;
 	@Column(name = "IS_INACTIVE", nullable = false, unique = false)
@@ -136,7 +171,8 @@ public class Person {
 	}
 
 	/**
-	 * @param signUp the signUp to set
+	 * @param signUp
+	 *            the signUp to set
 	 */
 	public void setSignUp(SignUp signUp) {
 		this.signUp = signUp;
@@ -150,7 +186,8 @@ public class Person {
 	}
 
 	/**
-	 * @param orderList the orderList to set
+	 * @param orderList
+	 *            the orderList to set
 	 */
 	public void setOrderList(Collection<Order> orderList) {
 		this.orderList = orderList;
@@ -164,7 +201,8 @@ public class Person {
 	}
 
 	/**
-	 * @param addressList the addressList to set
+	 * @param addressList
+	 *            the addressList to set
 	 */
 	public void setAddressList(Collection<Address> addressList) {
 		this.addressList = addressList;
@@ -178,15 +216,16 @@ public class Person {
 	}
 
 	/**
-	 * @param deliveryAddressList the deliveryAddressList to set
+	 * @param deliveryAddressList
+	 *            the deliveryAddressList to set
 	 */
-	public void setDeliveryAddressList(
-			Collection<DeliveryAddress> deliveryAddressList) {
+	public void setDeliveryAddressList(Collection<DeliveryAddress> deliveryAddressList) {
 		this.deliveryAddressList = deliveryAddressList;
 	}
 
 	/**
-	 * @param peId the peId to set
+	 * @param peId
+	 *            the peId to set
 	 */
 	public void setPeId(Long peId) {
 		this.peId = peId;
@@ -200,7 +239,8 @@ public class Person {
 	}
 
 	/**
-	 * @param createdDate the createdDate to set
+	 * @param createdDate
+	 *            the createdDate to set
 	 */
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
@@ -214,7 +254,8 @@ public class Person {
 	}
 
 	/**
-	 * @param modifiedDate the modifiedDate to set
+	 * @param modifiedDate
+	 *            the modifiedDate to set
 	 */
 	public void setModifiedDate(Date modifiedDate) {
 		this.modifiedDate = modifiedDate;
@@ -228,7 +269,8 @@ public class Person {
 	}
 
 	/**
-	 * @param isActive the isActive to set
+	 * @param isActive
+	 *            the isActive to set
 	 */
 	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;
@@ -242,7 +284,8 @@ public class Person {
 	}
 
 	/**
-	 * @param isInactive the isInactive to set
+	 * @param isInactive
+	 *            the isInactive to set
 	 */
 	public void setIsInactive(Boolean isInactive) {
 		this.isInactive = isInactive;
@@ -256,7 +299,8 @@ public class Person {
 	}
 
 	/**
-	 * @param shortDesc the shortDesc to set
+	 * @param shortDesc
+	 *            the shortDesc to set
 	 */
 	public void setShortDesc(String shortDesc) {
 		this.shortDesc = shortDesc;

@@ -3,19 +3,22 @@ package com.exspring.demo.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 @Entity
 @Table(name = "USER", schema = "demo")
 public class User {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-	@GenericGenerator(name = "native", strategy = "native")
-	private Long id;
+	@GeneratedValue(generator = "TableIdGen")
+	@GenericGenerator(strategy = "org.hibernate.id.enhanced.TableGenerator", name = "TableIdGen", parameters = {
+			@Parameter(name = "table_name", value = "USID_GENERATE"),
+			@Parameter(name = "segment_value", value = "usId"), @Parameter(name = "optimizer", value = "pooled"),
+			@Parameter(name = "initial_value", value = "1000"), @Parameter(name = "increment_size", value = "10") })
+	private Long usId;
 	@Column(name = "NAME", nullable = false, unique = false)
 	private String name;
 	@Column(name = "EMAIL", nullable = false, unique = false)
@@ -26,18 +29,18 @@ public class User {
 	}
 
 	/**
-	 * @return the id
+	 * @return the usId
 	 */
-	public Long getId() {
-		return id;
+	public Long getUsId() {
+		return usId;
 	}
 
 	/**
-	 * @param id
-	 *            the id to set
+	 * @param usId
+	 *            the usId to set
 	 */
-	public void setId(Long id) {
-		this.id = id;
+	public void setUsId(Long usId) {
+		this.usId = usId;
 	}
 
 	/**

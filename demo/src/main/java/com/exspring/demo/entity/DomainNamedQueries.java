@@ -8,5 +8,5 @@ package com.exspring.demo.entity;
  *
  */
 public class DomainNamedQueries {
-	public static final String PERSON_LIST="from Person";
+	public static final String PERSON_LIST = "from Person";
 }

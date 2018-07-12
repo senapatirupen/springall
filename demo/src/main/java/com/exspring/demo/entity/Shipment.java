@@ -20,17 +20,15 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 @Entity
-@Table(name = "SHIPMENT", schema = "netheart")
+@Table(name = "SHIPMENT", schema = "demo")
 public class Shipment {
 
 	@Id
 	@GeneratedValue(generator = "TableIdGen")
 	@GenericGenerator(strategy = "org.hibernate.id.enhanced.TableGenerator", name = "TableIdGen", parameters = {
 			@Parameter(name = "table_name", value = "SHID_GENERATE"),
-			@Parameter(name = "segment_value", value = "shId"),
-			@Parameter(name = "optimizer", value = "pooled"),
-			@Parameter(name = "initial_value", value = "1000"),
-			@Parameter(name = "increment_size", value = "10") })
+			@Parameter(name = "segment_value", value = "shId"), @Parameter(name = "optimizer", value = "pooled"),
+			@Parameter(name = "initial_value", value = "1000"), @Parameter(name = "increment_size", value = "10") })
 	private Long shId;
 	@Column(name = "START_DATE", nullable = false, unique = false)
 	private Date startDate;
@@ -41,10 +39,14 @@ public class Shipment {
 	@Column(name = "EXPECTED_DELIVERY_DATE", nullable = false, unique = false)
 	private Date expectedDeliveryDate;
 	@OneToMany(targetEntity = ShipmentAddress.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "SHIPMENT_SHIPMENTADDRESS", joinColumns = { @JoinColumn(name = "SHID", nullable = false, insertable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "SHADID", nullable = false, insertable = false, updatable = false) })
+	@JoinTable(name = "SHIPMENT_SHIPMENTADDRESS", joinColumns = {
+			@JoinColumn(name = "SHID", nullable = false, insertable = false, updatable = false) }, inverseJoinColumns = {
+					@JoinColumn(name = "SHADID", nullable = false, insertable = false, updatable = false) })
 	private Collection<ShipmentAddress> shipmentAddressList;
 	@OneToMany(targetEntity = Order.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "SHIPMENT_ORDER", joinColumns = { @JoinColumn(name = "SHID", nullable = false, insertable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "ODID", nullable = false, insertable = false, updatable = false) })
+	@JoinTable(name = "SHIPMENT_ORDER", joinColumns = {
+			@JoinColumn(name = "SHID", nullable = false, insertable = false, updatable = false) }, inverseJoinColumns = {
+					@JoinColumn(name = "ODID", nullable = false, insertable = false, updatable = false) })
 	private Collection<Order> orderList;
 	@Column(name = "CREATED_DATE", nullable = false, unique = false)
 	@Temporal(TemporalType.TIMESTAMP)
@@ -60,6 +62,37 @@ public class Shipment {
 	private Boolean isActive;
 	@Column(name = "IS_INACTIVE", nullable = false, unique = false)
 	private Boolean isInactive;
+
+	/**
+	 * @return the createdBy
+	 */
+	public Boolean getCreatedBy() {
+		return createdBy;
+	}
+
+	/**
+	 * @param createdBy
+	 *            the createdBy to set
+	 */
+	public void setCreatedBy(Boolean createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	/**
+	 * @return the modifiedBy
+	 */
+	public Boolean getModifiedBy() {
+		return modifiedBy;
+	}
+
+	/**
+	 * @param modifiedBy
+	 *            the modifiedBy to set
+	 */
+	public void setModifiedBy(Boolean modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
+
 	@Column(name = "SHORT_DESC", nullable = false, unique = false)
 	private String shortDesc;
 
@@ -149,8 +182,7 @@ public class Shipment {
 	 * @param shipmentAddressList
 	 *            the shipmentAddressList to set
 	 */
-	public void setShipmentAddressList(
-			Collection<ShipmentAddress> shipmentAddressList) {
+	public void setShipmentAddressList(Collection<ShipmentAddress> shipmentAddressList) {
 		this.shipmentAddressList = shipmentAddressList;
 	}
 

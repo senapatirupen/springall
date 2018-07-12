@@ -14,7 +14,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 @Entity
-@Table(name = "DELIVERY_ADDRESS", schema = "netheart")
+@Table(name = "DELIVERY_ADDRESS", schema = "demo")
 public class DeliveryAddress {
 
 	@Id
@@ -66,6 +66,34 @@ public class DeliveryAddress {
 	private Boolean createdBy;
 	@Column(name = "MODIFIED_BY", nullable = false, unique = false)
 	private Boolean modifiedBy;
+	/**
+	 * @return the createdBy
+	 */
+	public Boolean getCreatedBy() {
+		return createdBy;
+	}
+
+	/**
+	 * @param createdBy the createdBy to set
+	 */
+	public void setCreatedBy(Boolean createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	/**
+	 * @return the modifiedBy
+	 */
+	public Boolean getModifiedBy() {
+		return modifiedBy;
+	}
+
+	/**
+	 * @param modifiedBy the modifiedBy to set
+	 */
+	public void setModifiedBy(Boolean modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
+
 	@Column(name = "IS_ACTIVE", nullable = false, unique = false)
 	private Boolean isActive;
 	@Column(name = "IS_INACTIVE", nullable = false, unique = false)

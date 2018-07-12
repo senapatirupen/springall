@@ -14,17 +14,15 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 @Entity
-@Table(name = "PRICE", schema = "netheart")
+@Table(name = "PRICE", schema = "demo")
 public class Price {
 
 	@Id
 	@GeneratedValue(generator = "TableIdGen")
 	@GenericGenerator(strategy = "org.hibernate.id.enhanced.TableGenerator", name = "TableIdGen", parameters = {
 			@Parameter(name = "table_name", value = "PRID_GENERATE"),
-			@Parameter(name = "segment_value", value = "prId"),
-			@Parameter(name = "optimizer", value = "pooled"),
-			@Parameter(name = "initial_value", value = "1000"),
-			@Parameter(name = "increment_size", value = "10") })
+			@Parameter(name = "segment_value", value = "prId"), @Parameter(name = "optimizer", value = "pooled"),
+			@Parameter(name = "initial_value", value = "1000"), @Parameter(name = "increment_size", value = "10") })
 	private Long prId;
 	@Column(name = "PURCHASE_PRICE", nullable = false, unique = false)
 	private String purchasePrice;
@@ -48,6 +46,45 @@ public class Price {
 	private Boolean createdBy;
 	@Column(name = "MODIFIED_BY", nullable = false, unique = false)
 	private Boolean modifiedBy;
+
+	/**
+	 * @return the createdBy
+	 */
+	public Boolean getCreatedBy() {
+		return createdBy;
+	}
+
+	/**
+	 * @param createdBy
+	 *            the createdBy to set
+	 */
+	public void setCreatedBy(Boolean createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	/**
+	 * @return the modifiedBy
+	 */
+	public Boolean getModifiedBy() {
+		return modifiedBy;
+	}
+
+	/**
+	 * @param modifiedBy
+	 *            the modifiedBy to set
+	 */
+	public void setModifiedBy(Boolean modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
+
+	/**
+	 * @param isInactive
+	 *            the isInactive to set
+	 */
+	public void setIsInactive(Boolean isInactive) {
+		this.isInactive = isInactive;
+	}
+
 	@Column(name = "IS_ACTIVE", nullable = false, unique = false)
 	private Boolean isActive;
 	@Column(name = "IS_INACTIVE", nullable = false, unique = false)

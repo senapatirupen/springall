@@ -13,6 +13,6 @@ public class GreetingsController {
 			Model model) {
 		model.addAttribute("name", name);
 		return "greetings";
-	}
+	} 
 
 }
