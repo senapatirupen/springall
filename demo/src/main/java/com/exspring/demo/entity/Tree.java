@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -14,23 +15,14 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-
 @Entity
 @Table(name = "TREE", schema = "demo")
 public class Tree {
 
-	/**
-	 *
-	 */
 	@Id
-	@GeneratedValue(generator = "TableIdGen")
-	@GenericGenerator(strategy = "org.hibernate.id.enhanced.TableGenerator", name = "TableIdGen", parameters = {
-			@Parameter(name = "table_name", value = "TRID_GENERATE"),
-			@Parameter(name = "segment_value", value = "trId"), @Parameter(name = "optimizer", value = "pooled"),
-			@Parameter(name = "initial_value", value = "1000"), @Parameter(name = "increment_size", value = "10") })
-	private Long trId;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(name = "id", updatable = false, nullable = false)
+	private Long id;
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "TRDEID")
 	private TreeDetail treeDetail;
@@ -90,12 +82,19 @@ public class Tree {
 	@Column(name = "SHORT_DESC", nullable = false, unique = false)
 	private String shortDesc;
 
-	public Long getTrId() {
-		return trId;
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
 	}
 
-	public void setTrId(Long trId) {
-		this.trId = trId;
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	/**

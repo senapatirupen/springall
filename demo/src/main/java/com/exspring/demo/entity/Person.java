@@ -1,13 +1,14 @@
 package com.exspring.demo.entity;
 
-import java.util.Date;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -17,20 +18,14 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-
 @Entity
 @Table(name = "PERSON", schema = "demo")
 public class Person {
 
 	@Id
-	@GeneratedValue(generator = "TableIdGen")
-	@GenericGenerator(strategy = "org.hibernate.id.enhanced.TableGenerator", name = "TableIdGen", parameters = {
-			@Parameter(name = "table_name", value = "PEID_GENERATE"),
-			@Parameter(name = "segment_value", value = "peId"), @Parameter(name = "optimizer", value = "pooled"),
-			@Parameter(name = "initial_value", value = "1000"), @Parameter(name = "increment_size", value = "10") })
-	private Long peId;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(name = "id", updatable = false, nullable = false)
+	private Long id;
 	@Column(name = "FIRST_NAME", nullable = false, unique = false)
 	private String firstName;
 	@Column(name = "MIDDLE_NAME", nullable = false, unique = false)
@@ -38,7 +33,7 @@ public class Person {
 	@Column(name = "LAST_NAME", nullable = false, unique = false)
 	private String lastName;
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "SIID")
+	@JoinColumn(name = "id")
 	private SignUp signUp;
 	@OneToMany(targetEntity = Order.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "PERSON_ORDER", joinColumns = {
@@ -65,6 +60,12 @@ public class Person {
 	private Boolean createdBy;
 	@Column(name = "MODIFIED_BY", nullable = false, unique = false)
 	private Boolean modifiedBy;
+	@Column(name = "IS_ACTIVE", nullable = false, unique = false)
+	private Boolean isActive;
+	@Column(name = "IS_INACTIVE", nullable = false, unique = false)
+	private Boolean isInactive;
+	@Column(name = "SHORT_DESC", nullable = false, unique = false)
+	private String shortDesc;
 
 	/**
 	 * @return the createdBy
@@ -96,26 +97,19 @@ public class Person {
 		this.modifiedBy = modifiedBy;
 	}
 
-	@Column(name = "IS_ACTIVE", nullable = false, unique = false)
-	private Boolean isActive;
-	@Column(name = "IS_INACTIVE", nullable = false, unique = false)
-	private Boolean isInactive;
-	@Column(name = "SHORT_DESC", nullable = false, unique = false)
-	private String shortDesc;
-
 	/**
-	 * @return the peId
+	 * @return the id
 	 */
-	public Long getPeId() {
-		return peId;
+	public Long getId() {
+		return id;
 	}
 
 	/**
-	 * @param peId
-	 *            the peId to set
+	 * @param id
+	 *            the id to set
 	 */
-	public void setPeid(Long peId) {
-		this.peId = peId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	/**
@@ -221,14 +215,6 @@ public class Person {
 	 */
 	public void setDeliveryAddressList(Collection<DeliveryAddress> deliveryAddressList) {
 		this.deliveryAddressList = deliveryAddressList;
-	}
-
-	/**
-	 * @param peId
-	 *            the peId to set
-	 */
-	public void setPeId(Long peId) {
-		this.peId = peId;
 	}
 
 	/**

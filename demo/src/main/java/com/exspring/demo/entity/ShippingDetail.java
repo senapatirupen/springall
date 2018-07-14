@@ -5,23 +5,18 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 
 @Entity
 @Table(name = "SHIPPING_DETAIL", schema = "demo")
 public class ShippingDetail {
 
 	@Id
-	@GeneratedValue(generator = "TableIdGen")
-	@GenericGenerator(strategy = "org.hibernate.id.enhanced.TableGenerator", name = "TableIdGen", parameters = {
-			@Parameter(name = "table_name", value = "SHDEID_GENERATE"),
-			@Parameter(name = "segment_value", value = "shdeId"), @Parameter(name = "optimizer", value = "pooled"),
-			@Parameter(name = "initial_value", value = "1000"), @Parameter(name = "increment_size", value = "10") })
-	private Long shdeId;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(name = "id", updatable = false, nullable = false)
+	private Long id;
 	@Column(name = "IS_DELEVERED", nullable = false, unique = false)
 	private String isDelevered;
 	@Column(name = "DELIVER_DATE", nullable = false, unique = false)
@@ -32,18 +27,18 @@ public class ShippingDetail {
 	private String shippingAddress;
 
 	/**
-	 * @return the shdeId
+	 * @return the id
 	 */
-	public Long getShdeId() {
-		return shdeId;
+	public Long getId() {
+		return id;
 	}
 
 	/**
-	 * @param shdeId
-	 *            the shdeId to set
+	 * @param id
+	 *            the id to set
 	 */
-	public void setShdeId(Long shdeId) {
-		this.shdeId = shdeId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	/**

@@ -5,27 +5,20 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 
 @Entity
 @Table(name = "DELIVERY_ADDRESS", schema = "demo")
 public class DeliveryAddress {
 
 	@Id
-	@GeneratedValue(generator = "TableIdGen")
-	@GenericGenerator(strategy = "org.hibernate.id.enhanced.TableGenerator", name = "TableIdGen", parameters = {
-			@Parameter(name = "table_name", value = "DEADID_GENERATE"),
-			@Parameter(name = "segment_value", value = "deAdId"),
-			@Parameter(name = "optimizer", value = "pooled"),
-			@Parameter(name = "initial_value", value = "1000"),
-			@Parameter(name = "increment_size", value = "10") })
-	private Long deAdId;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(name = "id", updatable = false, nullable = false)
+	private Long id;
 	@Column(name = "ADDRESS_LINE_ONE", nullable = false, unique = false)
 	private String addressLineOne;
 	@Column(name = "ADDRESS_LINE_TWO", nullable = false, unique = false)
@@ -66,6 +59,7 @@ public class DeliveryAddress {
 	private Boolean createdBy;
 	@Column(name = "MODIFIED_BY", nullable = false, unique = false)
 	private Boolean modifiedBy;
+
 	/**
 	 * @return the createdBy
 	 */
@@ -74,7 +68,8 @@ public class DeliveryAddress {
 	}
 
 	/**
-	 * @param createdBy the createdBy to set
+	 * @param createdBy
+	 *            the createdBy to set
 	 */
 	public void setCreatedBy(Boolean createdBy) {
 		this.createdBy = createdBy;
@@ -88,7 +83,8 @@ public class DeliveryAddress {
 	}
 
 	/**
-	 * @param modifiedBy the modifiedBy to set
+	 * @param modifiedBy
+	 *            the modifiedBy to set
 	 */
 	public void setModifiedBy(Boolean modifiedBy) {
 		this.modifiedBy = modifiedBy;
@@ -102,18 +98,18 @@ public class DeliveryAddress {
 	private String shortDesc;
 
 	/**
-	 * @return the adId
+	 * @return the id
 	 */
-	public Long getDeAdId() {
-		return deAdId;
+	public Long getId() {
+		return id;
 	}
 
 	/**
-	 * @param deAdId
-	 *            the deAdId to set
+	 * @param id
+	 *            the id to set
 	 */
-	public void setDeAdId(Long deAdId) {
-		this.deAdId = deAdId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	/**

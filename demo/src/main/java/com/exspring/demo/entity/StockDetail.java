@@ -5,23 +5,18 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 
 @Entity
 @Table(name = "STOCK_DETAIL", schema = "demo")
 public class StockDetail {
 
 	@Id
-	@GeneratedValue(generator = "TableIdGen")
-	@GenericGenerator(strategy = "org.hibernate.id.enhanced.TableGenerator", name = "TableIdGen", parameters = {
-			@Parameter(name = "table_name", value = "STDEID_GENERATE"),
-			@Parameter(name = "segment_value", value = "stdeId"), @Parameter(name = "optimizer", value = "pooled"),
-			@Parameter(name = "initial_value", value = "1000"), @Parameter(name = "increment_size", value = "10") })
-	private Long stdeId;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(name = "id", updatable = false, nullable = false)
+	private Long id;
 	@Column(name = "NAME", nullable = false, unique = false)
 	private String name;
 	@Column(name = "IS_AVAILABLE", nullable = false, unique = false)
@@ -38,18 +33,18 @@ public class StockDetail {
 	private String quantityConsumptionPerDate;
 
 	/**
-	 * @return the stdeId
+	 * @return the id
 	 */
-	public Long getStdeId() {
-		return stdeId;
+	public Long getId() {
+		return id;
 	}
 
 	/**
-	 * @param stdeId
-	 *            the stdeId to set
+	 * @param id
+	 *            the id to set
 	 */
-	public void setStdeId(Long stdeId) {
-		this.stdeId = stdeId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	/**

@@ -5,26 +5,21 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-
 @Entity
 @Table(name = "SIGNUP", schema = "demo")
 public class SignUp {
 
 	@Id
-	@GeneratedValue(generator = "TableIdGen")
-	@GenericGenerator(strategy = "org.hibernate.id.enhanced.TableGenerator", name = "TableIdGen", parameters = {
-			@Parameter(name = "table_name", value = "SIID_GENERATE"),
-			@Parameter(name = "segment_value", value = "siId"), @Parameter(name = "optimizer", value = "pooled"),
-			@Parameter(name = "initial_value", value = "1000"), @Parameter(name = "increment_size", value = "10") })
-	private Long siId;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(name = "id", updatable = false, nullable = false)
+	private Long id;
 	@Column(name = "USER_NAME", nullable = false, unique = false)
 	private String userName;
 	@Temporal(TemporalType.DATE)
@@ -89,18 +84,18 @@ public class SignUp {
 	private String shortDesc;
 
 	/**
-	 * @return the peid
+	 * @return the id
 	 */
-	public Long getSiId() {
-		return siId;
+	public Long getId() {
+		return id;
 	}
 
 	/**
-	 * @param siId
-	 *            the siId to set
+	 * @param id
+	 *            the id to set
 	 */
-	public void setSiId(Long siId) {
-		this.siId = siId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	/**

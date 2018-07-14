@@ -3,23 +3,18 @@ package com.exspring.demo.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 
 @Entity
 @Table(name = "ORDER_DETAIL", schema = "demo")
 public class OrderDetail {
 
 	@Id
-	@GeneratedValue(generator = "TableIdGen")
-	@GenericGenerator(strategy = "org.hibernate.id.enhanced.TableGenerator", name = "TableIdGen", parameters = {
-			@Parameter(name = "table_name", value = "ODDEID_GENERATE"),
-			@Parameter(name = "segment_value", value = "oddeId"), @Parameter(name = "optimizer", value = "pooled"),
-			@Parameter(name = "initial_value", value = "1000"), @Parameter(name = "increment_size", value = "10") })
-	private Long oddeId;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(name = "id", updatable = false, nullable = false)
+	private Long id;
 	@Column(name = "NAME", nullable = false, unique = false)
 	private String name;
 	@Column(name = "QUANTITY", nullable = false, unique = false)
@@ -28,18 +23,18 @@ public class OrderDetail {
 	private String price;
 
 	/**
-	 * @return the oddeId
+	 * @return the id
 	 */
-	public Long getOddeId() {
-		return oddeId;
+	public Long getId() {
+		return id;
 	}
 
 	/**
-	 * @param oddeId
-	 *            the oddeId to set
+	 * @param id
+	 *            the id to set
 	 */
-	public void setOddeId(Long oddeId) {
-		this.oddeId = oddeId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	/**

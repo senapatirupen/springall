@@ -5,25 +5,20 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 
 @Entity
 @Table(name = "ADDRESS", schema = "demo")
 public class Address {
 
 	@Id
-	@GeneratedValue(generator = "TableIdGen")
-	@GenericGenerator(strategy = "org.hibernate.id.enhanced.TableGenerator", name = "TableIdGen", parameters = {
-			@Parameter(name = "table_name", value = "ADID_GENERATE"),
-			@Parameter(name = "segment_value", value = "adId"), @Parameter(name = "optimizer", value = "pooled"),
-			@Parameter(name = "initial_value", value = "1000"), @Parameter(name = "increment_size", value = "10") })
-	private Long adId;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(name = "id", updatable = false, nullable = false)
+	private Long id;
 	@Column(name = "ADDRESS_LINE_ONE", nullable = false, unique = false)
 	private String addressLineOne;
 	@Column(name = "ADDRESS_LINE_TWO", nullable = false, unique = false)
@@ -102,18 +97,18 @@ public class Address {
 	}
 
 	/**
-	 * @return the adId
+	 * @return the id
 	 */
-	public Long getAdId() {
-		return adId;
+	public Long getId() {
+		return id;
 	}
 
 	/**
-	 * @param adId
-	 *            the adId to set
+	 * @param id
+	 *            the id to set
 	 */
-	public void setAdId(Long adId) {
-		this.adId = adId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	/**

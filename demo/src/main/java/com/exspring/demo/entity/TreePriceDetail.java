@@ -3,23 +3,18 @@ package com.exspring.demo.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 
 @Entity
 @Table(name = "TREE_PRICE_DETAIL", schema = "demo")
 public class TreePriceDetail {
 
 	@Id
-	@GeneratedValue(generator = "TableIdGen")
-	@GenericGenerator(strategy = "org.hibernate.id.enhanced.TableGenerator", name = "TableIdGen", parameters = {
-			@Parameter(name = "table_name", value = "TRPRDEID_GENERATE"),
-			@Parameter(name = "segment_value", value = "trprdeId"), @Parameter(name = "optimizer", value = "pooled"),
-			@Parameter(name = "initial_value", value = "1000"), @Parameter(name = "increment_size", value = "10") })
-	private Long trprdeId;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(name = "id", updatable = false, nullable = false)
+	private Long id;
 	@Column(name = "PURCHASE_PRICE", nullable = false, unique = false)
 	private String purchasePrice;
 	@Column(name = "SALE_PRICE", nullable = false, unique = false)
@@ -34,18 +29,18 @@ public class TreePriceDetail {
 	private String profit;
 
 	/**
-	 * @return the trprdeId
+	 * @return the id
 	 */
-	public Long getTrprdeId() {
-		return trprdeId;
+	public Long getId() {
+		return id;
 	}
 
 	/**
-	 * @param trprdeId
-	 *            the trprdeId to set
+	 * @param id
+	 *            the id to set
 	 */
-	public void setTrprdeId(Long trprdeId) {
-		this.trprdeId = trprdeId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	/**

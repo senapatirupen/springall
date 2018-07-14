@@ -5,25 +5,20 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 
 @Entity
 @Table(name = "TREE_DETAIL", schema = "demo")
 public class TreeDetail {
 
 	@Id
-	@GeneratedValue(generator = "TableIdGen")
-	@GenericGenerator(strategy = "org.hibernate.id.enhanced.TableGenerator", name = "TableIdGen", parameters = {
-			@Parameter(name = "table_name", value = "TRDEID_GENERATE"),
-			@Parameter(name = "segment_value", value = "trdeId"), @Parameter(name = "optimizer", value = "pooled"),
-			@Parameter(name = "initial_value", value = "1000"), @Parameter(name = "increment_size", value = "10") })
-	private Long trdeId;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(name = "id", updatable = false, nullable = false)
+	private Long id;
 	@Column(nullable = false, unique = true, name = "NAME")
 	private String name;
 	@Column(nullable = false, unique = true, name = "COLOR")
@@ -91,18 +86,18 @@ public class TreeDetail {
 	private String shortDesc;
 
 	/**
-	 * @return the trdeId
+	 * @return the id
 	 */
-	public Long getTrdeId() {
-		return trdeId;
+	public Long getId() {
+		return id;
 	}
 
 	/**
-	 * @param trdeId
-	 *            the trdeId to set
+	 * @param id
+	 *            the id to set
 	 */
-	public void setTrdeId(Long trdeId) {
-		this.trdeId = trdeId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	/**

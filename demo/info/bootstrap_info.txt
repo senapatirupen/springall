@@ -1,0 +1,8 @@
+Bootstrap References:
+https://www.youtube.com/watch?v=hnCmSXCZEpU
+https://www.tutorialrepublic.com/twitter-bootstrap-tutorial/
+https://bootsnipp.com/
+https://getbootstrap.com/docs/4.0/getting-started/introduction/
+
+
+Bootstrap Elements:

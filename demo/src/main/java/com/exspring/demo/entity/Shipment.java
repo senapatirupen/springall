@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -16,20 +17,14 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-
 @Entity
 @Table(name = "SHIPMENT", schema = "demo")
 public class Shipment {
 
 	@Id
-	@GeneratedValue(generator = "TableIdGen")
-	@GenericGenerator(strategy = "org.hibernate.id.enhanced.TableGenerator", name = "TableIdGen", parameters = {
-			@Parameter(name = "table_name", value = "SHID_GENERATE"),
-			@Parameter(name = "segment_value", value = "shId"), @Parameter(name = "optimizer", value = "pooled"),
-			@Parameter(name = "initial_value", value = "1000"), @Parameter(name = "increment_size", value = "10") })
-	private Long shId;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(name = "id", updatable = false, nullable = false)
+	private Long id;
 	@Column(name = "START_DATE", nullable = false, unique = false)
 	private Date startDate;
 	@Column(name = "IS_DELEVERED", nullable = false, unique = false)
@@ -97,18 +92,18 @@ public class Shipment {
 	private String shortDesc;
 
 	/**
-	 * @return the shId
+	 * @return the id
 	 */
-	public Long getShId() {
-		return shId;
+	public Long getId() {
+		return id;
 	}
 
 	/**
-	 * @param shId
-	 *            the shId to set
+	 * @param id
+	 *            the id to set
 	 */
-	public void setShId(Long shId) {
-		this.shId = shId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	/**

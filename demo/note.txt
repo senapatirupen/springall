@@ -103,3 +103,13 @@ Switches template engines to disable caching
 Enables LiveReload to refresh browser automatically
 Other reasonable defaults based on development instead of production
 
+https://github.com/nauvalazhar/my-login
+---------------------------------------
+
+https://github.com/spring-projects/spring-petclinic
+---------------------------------------------------
+
+http://www.nakov.com/blog/2016/08/05/creating-a-blog-system-with-spring-mvc-thymeleaf-jpa-and-mysql/
+----------------------------------------------------------------------------------------------------
+
+
