@@ -112,4 +112,5 @@ https://github.com/spring-projects/spring-petclinic
 http://www.nakov.com/blog/2016/08/05/creating-a-blog-system-with-spring-mvc-thymeleaf-jpa-and-mysql/
 ----------------------------------------------------------------------------------------------------
 
-
+dao test
+https://www.javacodegeeks.com/2012/09/spring-dao-and-service-layer.html
