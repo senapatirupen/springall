@@ -43,6 +43,24 @@ public class DemoApplicationTests {
 		System.out.println(saveUser.getName());
 		assertEquals("Alok", saveUser.getName());
 	}*/
+	
+	@Test
+	public void findAllAddress(){
+		List<Address> addresses = addressRepository.findAll();
+		System.out.println(addresses.size());
+		assertNotNull(addresses);
+		assertTrue(!addresses.isEmpty());
+	}
+	
+	@Test
+	public void createUser(){
+		User user = new User();
+		user.setName("Alok");
+		user.setEmail("alok@outlook.com");
+		User saveUser = userRepository.save(user);
+		System.out.println(saveUser.getName());
+		assertEquals("Alok", saveUser.getName());
+	}
 
 	@Test
 	public void contextLoads() {
