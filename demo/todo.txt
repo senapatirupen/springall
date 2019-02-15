@@ -1,0 +1,5 @@
+-> common entity to make entry for createdBy, modifiedBy, createdDate and modifiedDate
+
+query:
+Alter table demo.signup modify modified_by varchar(255);
+Alter table demo.signup modify password text;

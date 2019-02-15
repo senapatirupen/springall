@@ -7,31 +7,44 @@
 <title>demo</title>
 <link rel="stylesheet" type="text/css" href="../../bootstrap-4.1.3/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="../css/my-login.css">
+
 </head>
 <body class="my-login-page">
 	<section class="h-100">
 		<div class="container h-100">
-			<div class="row justify-content-md-center align-items-center h-100">
+			<div class="row justify-content-md-center h-100">
 				<div class="card-wrapper">
 					<div class="card fat">
 						<div class="card-body">
-							<h4 class="card-title">Reset Password</h4>
-							<form action="#" th:action="@{/user/reset}" th:object="${signUp}" method="post">
+							<h4 class="card-title">Sign Up</h4>
+							<form action="#" th:action="@{/user/signUp}" th:object="${signUp}" method="post">
+
 								<div class="form-group">
-									<label for="email">Email Id</label> <input id="email" type="email" class="form-control"
-										name="email" th:field="*{emailId}" value="" required autofocus>
+									<label for="name">Name</label> <input id="name" type="text" th:field="*{userName}" class="form-control"
+										name="name" required autofocus>
 								</div>
+
 								<div class="form-group">
-									<label for="password">Old Password </label> <input id="password" type="password"
-										th:field="*{password}" class="form-control" name="password" required data-eye> <label
-										for="password">New Password </label> <input id="shortDesc" type="password" th:field="*{shortDesc}"
-										class="form-control" name="shortDesc" required data-eye>
+									<label for="email">E-Mail Address</label> <input id="email" type="email" th:field="*{emailId}"
+										class="form-control" name="email" required>
 								</div>
+
+								<div class="form-group">
+									<label for="password">Password</label> <input id="password" type="password" th:field="*{password}"
+										class="form-control" name="password" required data-eye>
+								</div>
+
+								<div class="form-group">
+									<label> <input type="checkbox" name="aggree" value="1"> I agree to the Terms and
+										Conditions
+									</label>
+								</div>
+
 								<div class="form-group no-margin">
-									<button type="submit" class="btn btn-primary btn-block">Reset</button>
+									<button type="submit" class="btn btn-primary btn-block">Register</button>
 								</div>
 								<div class="margin-top20 text-center">
-									Don't have an account? <a href="/user/signUp">SignUp</a>
+									Already have an account? <a href="/user/signIn">SignIn</a>
 								</div>
 							</form>
 						</div>

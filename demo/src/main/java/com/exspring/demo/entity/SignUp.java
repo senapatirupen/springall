@@ -23,17 +23,17 @@ public class SignUp {
 	@Column(name = "USER_NAME", nullable = false, unique = false)
 	private String userName;
 	@Temporal(TemporalType.DATE)
-	@Column(name = "DOB", nullable = false, unique = false)
+	@Column(name = "DOB", nullable = true, unique = false)
 	private Date dateOfBirth;
 	@Column(name = "EMAIL_ID", nullable = false, unique = false)
 	private String emailId;
-	@Column(name = "MOBILE_NUMBER", nullable = false, unique = false)
+	@Column(name = "MOBILE_NUMBER", nullable = true, unique = false)
 	private String mobileNumber;
 	@Column(name = "PASSWORD", nullable = false, unique = false)
 	private String password;
 	@OneToOne(mappedBy = "signUp")
 	private Person person;
-	@Column(name = "QUANTITY", nullable = false, unique = false)
+	@Column(name = "QUANTITY", nullable = true, unique = false)
 	private String quantity;
 	@Column(name = "CREATED_DATE", nullable = false, unique = false)
 	@Temporal(TemporalType.TIMESTAMP)
@@ -42,14 +42,20 @@ public class SignUp {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date modifiedDate;
 	@Column(name = "CREATED_BY", nullable = false, unique = false)
-	private Boolean createdBy;
+	private String createdBy;
 	@Column(name = "MODIFIED_BY", nullable = false, unique = false)
-	private Boolean modifiedBy;
+	private String modifiedBy;
+	@Column(name = "IS_ACTIVE", nullable = true, unique = false)
+	private Boolean isActive;
+	@Column(name = "IS_INACTIVE", nullable = true, unique = false)
+	private Boolean isInactive;
+	@Column(name = "SHORT_DESC", nullable = true, unique = false)
+	private String shortDesc;
 
 	/**
 	 * @return the createdBy
 	 */
-	public Boolean getCreatedBy() {
+	public String getCreatedBy() {
 		return createdBy;
 	}
 
@@ -57,14 +63,14 @@ public class SignUp {
 	 * @param createdBy
 	 *            the createdBy to set
 	 */
-	public void setCreatedBy(Boolean createdBy) {
+	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
 
 	/**
 	 * @return the modifiedBy
 	 */
-	public Boolean getModifiedBy() {
+	public String getModifiedBy() {
 		return modifiedBy;
 	}
 
@@ -72,16 +78,9 @@ public class SignUp {
 	 * @param modifiedBy
 	 *            the modifiedBy to set
 	 */
-	public void setModifiedBy(Boolean modifiedBy) {
+	public void setModifiedBy(String modifiedBy) {
 		this.modifiedBy = modifiedBy;
 	}
-
-	@Column(name = "IS_ACTIVE", nullable = false, unique = false)
-	private Boolean isActive;
-	@Column(name = "IS_INACTIVE", nullable = false, unique = false)
-	private Boolean isInactive;
-	@Column(name = "SHORT_DESC", nullable = false, unique = false)
-	private String shortDesc;
 
 	/**
 	 * @return the id

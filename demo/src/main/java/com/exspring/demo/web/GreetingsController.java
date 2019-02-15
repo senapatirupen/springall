@@ -46,7 +46,7 @@ public class GreetingsController {
 		return "greetings";
 	}
 	
-	@GetMapping("/forgot")
+	/*@GetMapping("/forgot")
 	public String forgot(@ModelAttribute User user) {
 		return "forgot";
 	}
@@ -59,6 +59,6 @@ public class GreetingsController {
 	@PostMapping("/reset")
 	public String reset(@ModelAttribute User user) {
 		return "reset";
-	}
+	}*/
 
 }
