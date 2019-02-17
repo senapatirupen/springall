@@ -11,7 +11,7 @@ public class WishListBuilder {
 	private WishListBuilder(){
 	}
 	
-	private static WishListBuilder create(){
+	public static WishListBuilder create(){
 		return instance;
 	}
 	
@@ -28,6 +28,7 @@ public class WishListBuilder {
 	public WishList build(){
 		WishList wishList = new WishList(this.shortDesc);
 		if(id != null){
+			wishList.setId(id);
 		}
 		return wishList;
 	}

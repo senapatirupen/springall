@@ -32,5 +32,75 @@ public class WishList {
 		this();
 		this.shortDesc = shortDesc;
 	}
-	
+
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the productIds
+	 */
+	public List<String> getProductIds() {
+		return productIds;
+	}
+
+	/**
+	 * @param productIds the productIds to set
+	 */
+	public void setProductIds(List<String> productIds) {
+		this.productIds = productIds;
+	}
+
+	/**
+	 * @return the shortDesc
+	 */
+	public String getShortDesc() {
+		return shortDesc;
+	}
+
+	/**
+	 * @param shortDesc the shortDesc to set
+	 */
+	public void setShortDesc(String shortDesc) {
+		this.shortDesc = shortDesc;
+	}
+
+	/**
+	 * @return the createdDate
+	 */
+	public LocalDateTime getCreatedDate() {
+		return createdDate;
+	}
+
+	/**
+	 * @param createdDate the createdDate to set
+	 */
+	public void setCreatedDate(LocalDateTime createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	/**
+	 * @return the modifiedDate
+	 */
+	public LocalDateTime getModifiedDate() {
+		return modifiedDate;
+	}
+
+	/**
+	 * @param modifiedDate the modifiedDate to set
+	 */
+	public void setModifiedDate(LocalDateTime modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+
 }
