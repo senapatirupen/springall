@@ -12,3 +12,14 @@ Book: Felipe Gutierrez - Pro Spring Boot 2_ An Authoritative Guide to Building M
 
 Running Spring Boot application:
 java -jar todo-in-memory-0.0.1-SNAPSHOT.jar --port=8787
+
+NoSql DB:
+•  Column (Cassandra, HBase, etc.)
+•  Document (CouchDB, MongoDB, etc.)
+•  Key-Value (Redis, Riak, etc.)
+•  Graph (Neo4J, Virtuoso, etc.)
+•  Multimodel (OrientDB, ArangoDB, etc.)
+
+Note: how did this code run? remember that we had marked the class as @Configurationand we had declared a @Beanthat returns a 
+CommandLineRunnerinterface. Spring boot execute this bean after it finish wiring up all the Spring beans and before the app starts; so it’s a nice way to 
+execute code (like an initialization) before the app runs.
