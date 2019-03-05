@@ -23,3 +23,22 @@ NoSql DB:
 Note: how did this code run? remember that we had marked the class as @Configurationand we had declared a @Beanthat returns a 
 CommandLineRunnerinterface. Spring boot execute this bean after it finish wiring up all the Spring beans and before the app starts; so it’s a nice way to 
 execute code (like an initialization) before the app runs.
+
+Application Flow:
+>>>>>
+http://localhost:8091/api/wishList
+POST
+{"shortDesc":"Read the Pro Spring Boot 2nd Edition Book"}
+>>>>>
+http://localhost:8091/api/wishList
+>>>>>
+http://localhost:8091/api/wishList    
+POST
+{
+"id": "47f266f3-bd0a-4362-9471-5602f47867a4",
+"description": "Read the Pro Spring Boot 3rd Edition Book",
+"created": "2018-05-02T22:27:26.042+0000",
+"modified": "2018-05-02T22:27:26.042+0000",
+"completed": false
+}
+>>>>>
