@@ -1,0 +1,102 @@
+REST:
+REST stands for REpresentational State Transfer and is an architectural style for designing distributed network applications. Roy Fileding coined the term REST in his PhD dissertation and proposed the following six constraints or principles as its basis:
+
+Client-Server:
+	Concerns should be separated between clients and servers. This enables client and server components to evolve independently and in turn allows the system to scale.
+Stateless:
+	The communication between client and server should be stateless. The server need not remember the state of the client. Instead, clients must include all of the necessary information in the request so that server can understand and process it.
+Layered System:
+	Multiple hierarchical layers such as gatewaays, firewalls, and proxies can exist between client and server. Layers can be added, modified, reordered, or removed transparently to improve scalability.
+Cache:
+	Responses from the server must be declared as cacheable or noncacheable. This would allow the client or its intermediary components to cache responses and reuse them for later requests. This reduces the load on the server and helps imporve the performance.
+Uniform Interface:
+	All interactions between client, server, and intermediary components are based on the uniformity of their interfaces. This simplifies the overall architecture as components can evolve independently as long as they implement the agreed on contract. The uniform interface constraint is further broken down into four subconstraints-resource identification, resource representations, seld-descriptive messages, and hypermedia as the engine of application state or HATEOAS. We will examine some of these guiding principles in the later sections of this chapter.
+Code on demand:
+	Clients can extend their functionality by downloading and executing code on demand. Examples include JavaScript scripts, java applets, Silverlignt, and so on. This is an optional constraint.
+	
+Scalable, Visible, Portable, Reliable, Testable, 
+
+URI and Resource description:
+http://blog.example.com/posts Represents a collection of blog post resources
+http://blog.example.com/posts/1 Represents a blog post resource with identifier “1”; such resources  are called singleton resources
+http://blog.example.com/posts/1/comments Represents a collection of comments associated with the blog entry identified by “1”; collections such as these that reside under a resource are referred to as subcollections
+http://blog.example.com/posts/1/comments/245 Represents the comment resource identified by “245”
+
+URI Templates:
+http://blog.example.com/{year}/posts
+This url will retrieve all the blog posts created in the year 2013, 2014,... on basis on year you pass
+Representation:
+Content Negotiation:
+The data/resource can have several representations. These representations can range from text-based HTML, XML, and JSON formats to binary formats such as PDFs, JPEGs, and MP4s. It is possible for the client to request a particular represntation and this process is termed as Content Negotiation.
+
+HTTP Methods:
+GET, HEAD, DELETE, PUT, POST, PATCH
+
+HTTP Status Codes:
+Informational Codes:
+	Status codes indicating that the server has received the request but has't completed processing it. These intermediate reponse codes are in the 100 series.
+Success Codes:
+	Status codes indicating that the request has been successfully received and processed. These codes are in the 200 series.
+Redirection Codes:
+	Status codes indicating that the request has been processed, but the client must perform an additional action to complete the request. These actions typically involve redirecting to a different location to get the resource. These codes are in the 300 series.
+Client Error Codes:
+	Staus codes indicating that there was an error or a problem with client's request. These codes are in the 400 series.
+Server Error Codes:
+	Staus Codes indicating that there was an error on the server while processing the client's request. These codes are in the 500 series.
+
+Status Code Description
+100 (Continue) Indicates that the server has received the first part of the request and the rest of the request should be sent.
+200 (OK) Indicates that all went well with the request.
+201 (Created) Indicates that request was completed and a new resource got created.
+202 (Accepted) Indicates that request has been accepted but is still being processed.
+204 (No Content) Indicates that the server has completed the request and has no entity body to send to the client.
+301 (Moved Permanently) Indicates that the requested resource has been moved to a new location and a new URI needs to be used to access the resource.
+400 (Bad Request) Indicates that the request is malformed and the server is not able to understand the request.
+401 (Unauthorized) Indicates that the client needs to authenticate before accessing the resource. If the request already contains client’s credentials, then a 401 indicates invalid credentials (e.g., bad password).
+403 (Forbidden) Indicates that the server understood the request but is refusing to fulfill it. This could be because the resource is being accessed from a blacklisted IP address or outside the approved time window.
+404 (Not Found) Indicates that the resource at the requested URI doesn’t exist.
+406 (Not Acceptable) Indicates that the server is capable of processing the request; however, the generated response may not be acceptable to the client. This happens when the client becomes too picky with its accept headers.
+500 (Internal Server Error) Indicates that there was an error on the server while processing the request and that the request can’t be completed.
+503 (Service Unavailable) Indicates that the request can’t be completed, as the server is overloaded or going through scheduled maintenance.
+
+>>>>> The most mature level for a service and is built around the notion of Hypermedia as the Engine of Application State, or HATEOAS. Services in this level allow discoverablility by providing responses that contain links to other related resources and controls that tell the client what to do next
+>>>>>
+
+RESTful API:
+    Identify Resources, Identify Endpoints, Identify Actions, Identify Responses
+	
+QuickPoll Application:
+We begin the development process by analyzing and understanding requirements. Our QuickPoll application has the following requirements:
+•	 Users interact with QuickPoll services to create new polls
+•	 Each poll contains a set of options that are provided during poll creation
+•	 Options inside a poll can be updated at a later point
+•	 To keep things simple, QuickPoll restricts voting on a single option
+•	 Participants can cast any number of votes
+•	 Results of a poll can be viewed by anyone
+
+//Set the location header for the newly created resource
+HttpHeaders responseHeaders = new HttpHeaders();
+URI newPollUri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(poll.getId()).toUri();
+responseHeaders.setLocation(newPollUri);
+return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
+
+@Query(value="select v.* from Party p, Vote v where p.PARTY_ID=?1 and v.PARTY_ID = p.PARTY_ID", nativeQuery=true)
+public Iterable<Vote> findByPoll(Long pollId);
+
+ErrorHandling:
+ > Handling errors in a REST API
+ > Designing meaningful error responses
+ > Validating API inputs
+ > Externalizing error messages
+ 
+ Error Responses:
+     timestamp: The time in milliseconds when the error happened
+	 statu: HTTP status code associated with the error; this is partly redundant as it is same as the response status code
+	 error: The description associated with the status code
+	 exception: The fully qualified path to the exception class resulting in this error
+	 message: The message providing more detalis about the error
+	 path: The URI that resulted in the exception
+	 
+Error handling is a crosscutting concern. We need an application-wide strategy that handles all of the errors in the same way and writes the associated details to the response body. As we discussed classes annotated with @ControllerAdvice can be used to implement such crosscutting concerns. The RestExceptionHandler class with an aptly named handleResourceNotFoundException method.
+Thanks to the @ExceptionHandler annotation, any time a ResourceNotFoundException is thrown by a controller, Spring MVC would invoke the RestExceptionHandler's handleResourceNotFoundException method. Inside this method, we create an instance of ErrorDetail and populat it with error information.
+
