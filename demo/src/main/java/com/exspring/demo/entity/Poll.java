@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+<<<<<<< HEAD
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -32,6 +33,24 @@ public class Poll {
 	@JoinColumn(name="POLL_ID")
 	@OrderBy
 	@Size(min=2, max=6)
+=======
+
+@Entity
+@Table(name = "POLL", schema = "demo")
+public class Poll {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(name = "POLL_ID", updatable = false, nullable = false)
+	private Long id;
+	
+	@Column(name="QUESTION")
+	private String question;
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="POLL_ID")
+	@OrderBy
+>>>>>>> branch 'master' of https://github.com/senapatirupen/springall.git
 	private Set<Party> parties;
 
 	/**
