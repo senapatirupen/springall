@@ -68,7 +68,7 @@ public class PollController {
 	@RequestMapping(value = "/polls", method = RequestMethod.POST)
 	public ResponseEntity<?> createPoll(@Valid @RequestBody Poll poll) {
 		poll = pollRepository.save(poll);
-		// Set the location header for the newly created resource
+		// Set the location header  for the newly created resource
 		HttpHeaders responseHeaders = new HttpHeaders();
 		URI newPollUri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(poll.getId())
 				.toUri();
