@@ -100,3 +100,112 @@ ErrorHandling:
 Error handling is a crosscutting concern. We need an application-wide strategy that handles all of the errors in the same way and writes the associated details to the response body. As we discussed classes annotated with @ControllerAdvice can be used to implement such crosscutting concerns. The RestExceptionHandler class with an aptly named handleResourceNotFoundException method.
 Thanks to the @ExceptionHandler annotation, any time a ResourceNotFoundException is thrown by a controller, Spring MVC would invoke the RestExceptionHandler's handleResourceNotFoundException method. Inside this method, we create an instance of ErrorDetail and populat it with error information.
 
+>>>>>
+Bean Validation API
+>>>>>
+Externalizing Error Message:
+    It would be even better if the error message to pull from an external properties file. The property file approach not only simplifies Java code but also makes it easy to swap the messages without making code changes. It also sets the stage for future internationalization/localization needs. To achieve this, create a message.properties file under the src\main\resources folder and add the following two messages:
+	NotEmpty.poll.question=Question is a required field
+	Size.poll.options=Options must be greater than {2} and less than {1}
+	
+Improving RestExceptionHandler:
+By default, Spring MVC handles error scenarios such as not being able to read a malformed request or not 
+finding a required request parameter by throwing a set of standard exceptions. However, Spring MVC doesn’t 
+write these standard exception details to the response body. To keep things consistent for our QuickPoll clients, 
+it is important that Spring MVC standard exceptions are also handled in the same way and that we return the 
+same error response format. A straightforward approach is to create a handler method for each exception 
+in our RestExceptionHandler. A simpler approach is to have RestExceptionHandlerclass extend Spring’s 
+ResponseEntityExceptionHandler. The ResponseEntityExceptionHandlerclass contains a set of protected 
+methods that handle standard exception and return a ResponseEntityinstance containing error details.
+Extending the ResponseEntityExceptionHandlerclass allows us to override the protected 
+method associated with the exception and return an ErrorDetailinstance. Listing 5-13shows a 
+modified RestExceptionHandlerthat overrides handleHttpMessageNotReadablemethod. The method 
+implementation follows the same pattern that we used before—create and populate an instance of 
+ErrorDetail. Because the ResponseEntityExceptionHandleralready comes with a handler method for 
+MethodArgumentNotValidException, we have moved the handleValidationErrormethod code to an 
+overridden handleMethodArgumentNotValidmethod.
+Listing 5-13.  RestExceptionHandler handling malformed messages
+@ControllerAdvice
+public class RestExceptionHandler extends ResponseEntityExceptionHandler {
+@Override
+protected ResponseEntity<Object> handleHttpMessageNotReadable(
+HttpMessageNotReadableException ex, HttpHeaders headers,
+HttpStatus status, WebRequest request) {
+ErrorDetail errorDetail = new ErrorDetail();
+errorDetail.setTimeStamp(new Date().getTime());
+errorDetail.setStatus(status.value());
+errorDetail.setTitle("Message Not Readable");
+errorDetail.setDetail(ex.getMessage());
+errorDetail.setDeveloperMessage(ex.getClass().getName());
+return handleExceptionInternal(ex, errorDetail, headers, status, request);
+}
+@Override
+public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNot
+ValidException manve, HttpHeaders headers, HttpStatus status, WebRequest request) {
+// implementation removed for brevity
+return handleExceptionInternal(manve, errorDetail, headers, status, request);
+}
+}
+
+
+Documenting REST Services:
+    > The basics of Swagger
+	> Using Swagger for API documentatin
+	> Customizing Swagger
+Swagger a tool that simplifies REST API documentation
+Swagger, Apiary, and iODocs for describing REST services
+Swagger is a specification and a framework for creating interactive REST API documentation. It enables documentation to be in sync with any changes made to REST services. It also provides a set of tools and SDK generators for generation API client code. Swagger was originally developed by Wordnik in early 2010 and is currently backed by SmartBear software.
+
+Integrating Swagger
+Integrating Swagger involves creating the “api-docs” resource listing file and a set of API declaration files 
+describing API’s resources. Instead of handcoding these files, there are several Swagger and communityowned projects that integrate with existing source code and automatically generate these files. Swaggerspringmvc is one such framework that simplifies Swagger integration with Spring MVC based projects. 
+We begin the Swagger integration with QuickPoll application by adding the swagger-springmvcMaven 
+dependency shown in Listing 6-3in the pom.xmlfile.
+
+http://localhost:8080/api-docs
+http://localhost:8080/api-docs/default
+http://localhost:8080/api-docs/default/poll-controller
+
+Swagger UI
+The resource listing and API declaration files act as a valuable resource for understanding a REST API. 
+Swagger UI is a subproject of Swagger that takes these files and automatically generates pleasant, intuitive 
+interface for interacting with API. Using this interface, both technical and nontechnical folks can test REST 
+services by submitting requests and see how those services respond. The Swagger UI is built using HTML, 
+CSS, and JavaScript, and doesn’t have any other external dependencies. It can be hosted in any server 
+environment or can even run from your local machine.
+
+Swagger API for REST Service Documentation
+https://www.baeldung.com/swagger-2-documentation-for-spring-rest-api
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+		
+@Configuration
+@EnableSwagger2
+public class SwaggerConfig {                                    
+    @Bean
+    public Docket api() { 
+        return new Docket(DocumentationType.SWAGGER_2)  
+          .select()                                  
+          .apis(RequestHandlerSelectors.any())              
+          .paths(PathSelectors.any())                          
+          .build();                                           
+    }
+}
+		
+http://localhost:8080/your-app-root/swagger-ui.html
+http://localhost:8080/spring-security-rest/api/swagger-ui.html
+
+>>>>>
+Versioning, Paging, and Sorting
+    Strategies for versioning REST services
+	Adding pagination capabilities
+	Adding sorting capabilities
